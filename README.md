@@ -2,7 +2,7 @@
 
 Simple touch controls for Unity.
 
-[Features](#features) | [Touch Button](#touch-button) | [Thumbstick](#thumbstick) | [Touchpad](#touchpad) | [Example](#example-included) | [Compatibility](#compatibility) | [Donations](#donations)
+[Features](#features) | [Touch Button](#touch-button) | [Thumbstick](#thumbstick) | [Touchpad](#touchpad) | [Example](#example-included) | [Compatibility](#compatibility) | [Donating](#donating)
 
 ## Features
 
@@ -28,8 +28,8 @@ https://user-images.githubusercontent.com/37028872/160279635-9c4025f4-880c-4b40-
 
 ## Compatibility
 
-The source code in this project was written in ***Unity 2021.2.17f1*** compatibility with other versions is possible but has not been tested.
+The source code in this project was written in ***Unity 2021.2.17f1*** compatibility with earlier versions is possible but has not been tested.
 
-## Donations
+## Donating
 
 [Donations](https://ko-fi.com/winterboltgames) are not required but are appreciated ❤️
