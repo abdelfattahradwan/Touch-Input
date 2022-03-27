@@ -35,8 +35,6 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 		{
 			base.Update();
 
-			Debug.Log(UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count);
-
 			if (touchIndex == -1)
 			{
 				ResetTouchButton();
