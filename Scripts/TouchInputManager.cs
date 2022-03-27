@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WinterboltGames.TouchInput
+namespace WinterboltGames.TouchInput.Scripts
 {
-	public static class TouchInput
+	public sealed class TouchInputManager : MonoBehaviour
 	{
 		public static IEnumerable<(int, Touch)> NonAllocatingIndexedTouchesIterator()
 		{

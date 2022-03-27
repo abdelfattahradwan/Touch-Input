@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace WinterboltGames.TouchInput.Controls
+namespace WinterboltGames.TouchInput.Scripts.Controls
 {
 	public sealed class Thumbstick : TouchControl
 	{

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace WinterboltGames.TouchInput.Controls
+namespace WinterboltGames.TouchInput.Scripts.Controls
 {
 	public sealed class Touchpad : TouchControl
 	{
@@ -42,7 +42,7 @@ namespace WinterboltGames.TouchInput.Controls
 
 			if (fingerId == -1)
 			{
-				foreach ((int i, Touch touch) in TouchInput.NonAllocatingIndexedTouchesIterator())
+				foreach ((int i, Touch touch) in TouchInputManager.NonAllocatingIndexedTouchesIterator())
 				{
 					if (RectTransformUtility.RectangleContainsScreenPoint((RectTransform)transform, touch.position))
 					{
@@ -58,7 +58,7 @@ namespace WinterboltGames.TouchInput.Controls
 			}
 			else
 			{
-				foreach ((int i, Touch touch) in TouchInput.NonAllocatingIndexedTouchesIterator())
+				foreach ((int i, Touch touch) in TouchInputManager.NonAllocatingIndexedTouchesIterator())
 				{
 					if (touch.fingerId == fingerId)
 					{

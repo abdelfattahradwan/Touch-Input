@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using WinterboltGames.TouchInput.Controls;
+using WinterboltGames.TouchInput.Scripts.Controls;
 
-namespace WinterboltGames.TouchInput.Examples
+namespace WinterboltGames.TouchInput.Examples.Scripts
 {
 	public sealed class TouchButtonExample : MonoBehaviour
 	{

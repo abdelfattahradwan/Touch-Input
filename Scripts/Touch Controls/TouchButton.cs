@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace WinterboltGames.TouchInput.Controls
+namespace WinterboltGames.TouchInput.Scripts.Controls
 {
 	public sealed class TouchButton : TouchControl
 	{
@@ -35,6 +35,8 @@ namespace WinterboltGames.TouchInput.Controls
 		{
 			base.Update();
 
+			Debug.Log(UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches.Count);
+
 			if (touchIndex == -1)
 			{
 				ResetTouchButton();
@@ -47,7 +49,7 @@ namespace WinterboltGames.TouchInput.Controls
 				{
 					IsPressed = true;
 				}
-				else if (touch.phase is (TouchPhase.Canceled or TouchPhase.Ended))
+				else if (touch.phase is TouchPhase.Canceled or TouchPhase.Ended)
 				{
 					ResetTouchButton();
 				}
