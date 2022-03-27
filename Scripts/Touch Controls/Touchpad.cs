@@ -40,13 +40,13 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 		{
 			touchIndex = -1;
 
-			if (fingerId == -1)
+			if (touchId == -1)
 			{
-				foreach ((int i, Touch touch) in TouchInputManager.NonAllocatingIndexedTouchesIterator())
+				foreach ((int i, SimpleTouch touch) in TouchInput.NonAllocatingIndexedTouchesIterator())
 				{
-					if (RectTransformUtility.RectangleContainsScreenPoint((RectTransform)transform, touch.position))
+					if (touch.Phase == SimpleTouchPhase.Began && RectTransformUtility.RectangleContainsScreenPoint((RectTransform)transform, touch.Position))
 					{
-						fingerId = touch.fingerId;
+						touchId = touch.Id;
 
 						touchIndex = i;
 
@@ -58,9 +58,9 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 			}
 			else
 			{
-				foreach ((int i, Touch touch) in TouchInputManager.NonAllocatingIndexedTouchesIterator())
+				foreach ((int i, SimpleTouch touch) in TouchInput.NonAllocatingIndexedTouchesIterator())
 				{
-					if (touch.fingerId == fingerId)
+					if (touch.Id == touchId)
 					{
 						touchIndex = i;
 
@@ -77,27 +77,27 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 			}
 			else
 			{
-				Touch touch = Input.GetTouch(touchIndex);
+				SimpleTouch touch = TouchInput.GetTouchByIndex(touchIndex);
 
-				if (touch.phase == TouchPhase.Began)
+				if (touch.Phase == SimpleTouchPhase.Began)
 				{
 					IsActive = true;
 
-					_lastPosition = touch.position;
+					_lastPosition = touch.Position;
 				}
-				else if (touch.phase == TouchPhase.Moved)
+				else if (touch.Phase == SimpleTouchPhase.Moved)
 				{
-					_currentPosition = touch.position;
+					_currentPosition = touch.Position;
 
 					Delta = _currentPosition - _lastPosition;
 
 					_lastPosition = _currentPosition;
 				}
-				else if (touch.phase == TouchPhase.Stationary)
+				else if (touch.Phase == SimpleTouchPhase.Stationary)
 				{
 					Delta = Vector2.zero;
 				}
-				else if (touch.phase is (TouchPhase.Canceled or TouchPhase.Ended))
+				else if (touch.Phase is SimpleTouchPhase.None or SimpleTouchPhase.Ended or SimpleTouchPhase.Canceled)
 				{
 					ResetTouchpad();
 				}
@@ -106,7 +106,7 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 
 		private void ResetTouchpad()
 		{
-			fingerId = -1;
+			touchId = -1;
 
 			IsActive = false;
 

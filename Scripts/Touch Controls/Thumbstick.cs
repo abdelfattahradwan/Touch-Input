@@ -49,20 +49,20 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 			}
 			else
 			{
-				Touch touch = UnityEngine.Input.GetTouch(touchIndex);
+				SimpleTouch touch = TouchInput.GetTouchByIndex(touchIndex);
 
-				if (touch.phase == TouchPhase.Began)
+				if (touch.Phase == SimpleTouchPhase.Began)
 				{
 					IsActive = true;
 				}
-				else if (touch.phase is TouchPhase.Canceled or TouchPhase.Ended)
+				else if (touch.Phase is SimpleTouchPhase.Ended or SimpleTouchPhase.Canceled)
 				{
 					ResetThumbstick();
 				}
 
 				if (_isActive)
 				{
-					_ = RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)transform, touch.position, null, out Vector2 position);
+					_ = RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)transform, touch.Position, null, out Vector2 position);
 
 					position = Vector2.ClampMagnitude(position, maxThumbDistance);
 
@@ -79,11 +79,13 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 
 		private void ResetThumbstick()
 		{
-			fingerId = -1;
+			touchId = -1;
 
 			IsActive = false;
 
 			thumb.anchoredPosition = Vector2.zero;
+
+			Input = Vector2.zero;
 		}
 	}
 }

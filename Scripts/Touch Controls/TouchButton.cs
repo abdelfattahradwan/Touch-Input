@@ -41,13 +41,13 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 			}
 			else
 			{
-				Touch touch = Input.GetTouch(touchIndex);
+				SimpleTouch touch = TouchInput.GetTouchByIndex(touchIndex);
 
-				if (touch.phase == TouchPhase.Began)
+				if (touch.Phase == SimpleTouchPhase.Began)
 				{
 					IsPressed = true;
 				}
-				else if (touch.phase is TouchPhase.Canceled or TouchPhase.Ended)
+				else if (touch.Phase is SimpleTouchPhase.Ended or SimpleTouchPhase.Canceled)
 				{
 					ResetTouchButton();
 				}
@@ -56,7 +56,7 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 
 		private void ResetTouchButton()
 		{
-			fingerId = -1;
+			touchId = -1;
 
 			IsPressed = false;
 		}

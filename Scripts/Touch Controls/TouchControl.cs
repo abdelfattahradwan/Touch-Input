@@ -11,7 +11,7 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 
 		protected EventSystem eventSystem;
 
-		protected int fingerId = -1;
+		protected int touchId = -1;
 
 		protected int touchIndex = -1;
 
@@ -20,19 +20,21 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 			graphicRaycaster = FindObjectOfType<GraphicRaycaster>();
 
 			eventSystem = FindObjectOfType<EventSystem>();
+
+			UnityEngine.InputSystem.EnhancedTouch.EnhancedTouchSupport.Enable();
 		}
 
 		protected virtual void Update()
 		{
 			touchIndex = -1;
 
-			if (fingerId == -1)
+			if (touchId == -1)
 			{
-				foreach ((int i, Touch touch) in TouchInputManager.NonAllocatingIndexedTouchesIterator())
+				foreach ((int i, SimpleTouch touch) in TouchInput.NonAllocatingIndexedTouchesIterator())
 				{
 					PointerEventData eventData = new(eventSystem)
 					{
-						position = touch.position,
+						position = touch.Position,
 					};
 
 					List<RaycastResult> results = new();
@@ -43,7 +45,7 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 					{
 						if (result.gameObject == gameObject)
 						{
-							fingerId = touch.fingerId;
+							touchId = touch.Id;
 
 							touchIndex = i;
 
@@ -56,9 +58,9 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 			}
 			else
 			{
-				foreach ((int i, Touch touch) in TouchInputManager.NonAllocatingIndexedTouchesIterator())
+				foreach ((int i, SimpleTouch touch) in TouchInput.NonAllocatingIndexedTouchesIterator())
 				{
-					if (touch.fingerId == fingerId)
+					if (touch.Id == touchId)
 					{
 						touchIndex = i;
 
