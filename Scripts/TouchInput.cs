@@ -19,13 +19,14 @@ namespace WinterboltGames.TouchInput.Scripts
 {
 	public static class TouchInput
 	{
+		private const string TouchUnavailableExceptionMessage = "Cannot get touches without a touchscreen. Consider using the Device Simulator.";
 
 		public static int GetTouchCount()
 		{
 
 #if ENABLE_INPUT_SYSTEM
 
-			return EnhancedTouchSupport.enabled ? Touch.activeTouches.Count : Touchscreen.current?.touches.Count ?? throw new InvalidOperationException("Cannot get touches without a touchscreen. Consider using the Device Simulator.");
+			return EnhancedTouchSupport.enabled ? Touch.activeTouches.Count : Touchscreen.current?.touches.Count ?? 0;
 
 #else
 
@@ -145,7 +146,7 @@ namespace WinterboltGames.TouchInput.Scripts
 			}
 			else
 			{
-				TouchState touch = Touchscreen.current?.touches[index].ReadValue() ?? throw new InvalidOperationException("Cannot get touches without a touchscreen. Consider using the Device Simulator.");
+				TouchState touch = Touchscreen.current?.touches[index].ReadValue() ?? throw new InvalidOperationException(TouchUnavailableExceptionMessage);
 
 				id = touch.touchId;
 
@@ -202,7 +203,7 @@ namespace WinterboltGames.TouchInput.Scripts
 				}
 				else
 				{
-					yield return (i, ToSimpleTouch(Touchscreen.current?.touches[i] ?? throw new InvalidOperationException("Cannot get touches without a touchscreen. Consider using the Device Simulator.")));
+					yield return (i, ToSimpleTouch(Touchscreen.current?.touches[i] ?? throw new InvalidOperationException(TouchUnavailableExceptionMessage)));
 				}
 
 #else

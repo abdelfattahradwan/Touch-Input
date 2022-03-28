@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.Events;
 
 namespace WinterboltGames.TouchInput.Scripts.Controls
@@ -11,7 +10,7 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 		{
 			get => _isPressed;
 
-			set
+			private set
 			{
 				if (_isPressed == value) return;
 

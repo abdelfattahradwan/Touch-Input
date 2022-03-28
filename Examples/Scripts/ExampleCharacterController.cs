@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using WinterboltGames.TouchInput.Scripts.Controls;
 
@@ -95,10 +93,10 @@ namespace WinterboltGames.TouchInput.Examples.Scripts
 			}
 			else
 			{
-				if (lookThumbstick.IsActive)
+				if (lookThumbstick.Input.sqrMagnitude > float.Epsilon)
 				{
 					transform.rotation = Quaternion.LookRotation(new Vector3(lookThumbstick.Input.x, 0.0f, lookThumbstick.Input.y), Vector2.up);
-				}				
+				}
 			}
 		}
 	}

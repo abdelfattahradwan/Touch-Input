@@ -20,8 +20,6 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 			graphicRaycaster = FindObjectOfType<GraphicRaycaster>();
 
 			eventSystem = FindObjectOfType<EventSystem>();
-
-			UnityEngine.InputSystem.EnhancedTouch.EnhancedTouchSupport.Enable();
 		}
 
 		protected virtual void Update()
