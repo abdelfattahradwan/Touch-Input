@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
+using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
 namespace WinterboltGames.TouchInput.Scripts.Controls
 {
@@ -49,20 +51,20 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 			}
 			else
 			{
-				SimpleTouch touch = TouchInput.GetTouchByIndex(touchIndex);
+				Touch touch = Touch.activeTouches[touchIndex];
 
-				if (touch.Phase == SimpleTouchPhase.Began)
+				if (touch.phase == TouchPhase.Began)
 				{
 					IsActive = true;
 				}
-				else if (touch.Phase is SimpleTouchPhase.Ended or SimpleTouchPhase.Canceled)
+				else if (touch.phase is TouchPhase.Ended or TouchPhase.Canceled)
 				{
 					ResetThumbstick();
 				}
 
 				if (_isActive)
 				{
-					_ = RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)transform, touch.Position, null, out Vector2 position);
+					_ = RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)transform, touch.screenPosition, null, out Vector2 position);
 
 					position = Vector2.ClampMagnitude(position, maxThumbDistance);
 

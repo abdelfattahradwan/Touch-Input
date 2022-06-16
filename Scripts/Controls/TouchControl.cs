@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 namespace WinterboltGames.TouchInput.Scripts.Controls
 {
@@ -28,11 +29,13 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 
 			if (touchId == -1)
 			{
-				foreach ((int i, SimpleTouch touch) in TouchInput.NonAllocatingIndexedTouchesIterator())
+				for (int i = 0; i < Touch.activeTouches.Count; i++)
 				{
+					Touch touch = Touch.activeTouches[i];
+
 					PointerEventData eventData = new(eventSystem)
 					{
-						position = touch.Position,
+						position = touch.screenPosition,
 					};
 
 					List<RaycastResult> results = new();
@@ -43,7 +46,7 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 					{
 						if (result.gameObject == gameObject)
 						{
-							touchId = touch.Id;
+							touchId = touch.touchId;
 
 							touchIndex = i;
 
@@ -56,9 +59,11 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 			}
 			else
 			{
-				foreach ((int i, SimpleTouch touch) in TouchInput.NonAllocatingIndexedTouchesIterator())
+				for (int i = 0; i < Touch.activeTouches.Count; i++)
 				{
-					if (touch.Id == touchId)
+					Touch touch = Touch.activeTouches[i];
+
+					if (touch.touchId == touchId)
 					{
 						touchIndex = i;
 

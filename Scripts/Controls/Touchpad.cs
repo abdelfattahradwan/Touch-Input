@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
+using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
 namespace WinterboltGames.TouchInput.Scripts.Controls
 {
@@ -42,11 +44,13 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 
 			if (touchId == -1)
 			{
-				foreach ((int i, SimpleTouch touch) in TouchInput.NonAllocatingIndexedTouchesIterator())
+				for (int i = 0; i < Touch.activeTouches.Count; i++)
 				{
-					if (touch.Phase == SimpleTouchPhase.Began && RectTransformUtility.RectangleContainsScreenPoint((RectTransform)transform, touch.Position))
+					Touch touch = Touch.activeTouches[i];
+
+					if (touch.phase == TouchPhase.Began && RectTransformUtility.RectangleContainsScreenPoint((RectTransform)transform, touch.screenPosition))
 					{
-						touchId = touch.Id;
+						touchId = touch.touchId;
 
 						touchIndex = i;
 
@@ -58,9 +62,11 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 			}
 			else
 			{
-				foreach ((int i, SimpleTouch touch) in TouchInput.NonAllocatingIndexedTouchesIterator())
+				for (int i = 0; i < Touch.activeTouches.Count; i++)
 				{
-					if (touch.Id == touchId)
+					Touch touch = Touch.activeTouches[i];
+
+					if (touch.touchId == touchId)
 					{
 						touchIndex = i;
 
@@ -77,27 +83,27 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 			}
 			else
 			{
-				SimpleTouch touch = TouchInput.GetTouchByIndex(touchIndex);
+				Touch touch = Touch.activeTouches[touchIndex];
 
-				if (touch.Phase == SimpleTouchPhase.Began)
+				if (touch.phase == TouchPhase.Began)
 				{
 					IsActive = true;
 
-					_lastPosition = touch.Position;
+					_lastPosition = touch.screenPosition;
 				}
-				else if (touch.Phase == SimpleTouchPhase.Moved)
+				else if (touch.phase == TouchPhase.Moved)
 				{
-					_currentPosition = touch.Position;
+					_currentPosition = touch.screenPosition;
 
 					Delta = _currentPosition - _lastPosition;
 
 					_lastPosition = _currentPosition;
 				}
-				else if (touch.Phase == SimpleTouchPhase.Stationary)
+				else if (touch.phase == TouchPhase.Stationary)
 				{
 					Delta = Vector2.zero;
 				}
-				else if (touch.Phase is SimpleTouchPhase.None or SimpleTouchPhase.Ended or SimpleTouchPhase.Canceled)
+				else if (touch.phase is TouchPhase.None or TouchPhase.Ended or TouchPhase.Canceled)
 				{
 					ResetTouchpad();
 				}

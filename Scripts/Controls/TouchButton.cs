@@ -1,4 +1,6 @@
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 namespace WinterboltGames.TouchInput.Scripts.Controls
 {
@@ -40,13 +42,13 @@ namespace WinterboltGames.TouchInput.Scripts.Controls
 			}
 			else
 			{
-				SimpleTouch touch = TouchInput.GetTouchByIndex(touchIndex);
+				Touch touch = Touch.activeTouches[touchIndex];
 
-				if (touch.Phase == SimpleTouchPhase.Began)
+				if (touch.phase == TouchPhase.Began)
 				{
 					IsPressed = true;
 				}
-				else if (touch.Phase is SimpleTouchPhase.Ended or SimpleTouchPhase.Canceled)
+				else if (touch.phase is TouchPhase.Ended or TouchPhase.Canceled)
 				{
 					ResetTouchButton();
 				}
