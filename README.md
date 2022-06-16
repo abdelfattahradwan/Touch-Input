@@ -6,9 +6,9 @@ Simple touch controls for Unity.
 
 ## Features
 
-- 3 controls (Touch Button, Thumbstick, Touchpad)
-- Supports legacy input system
-- Supports new input system
+- Touch Button
+- Thumbstick
+- Touchpad
 
 ## Touch Button
 
@@ -28,7 +28,8 @@ https://user-images.githubusercontent.com/37028872/160279635-9c4025f4-880c-4b40-
 
 ## Compatibility
 
-The source code in this project was written in ***Unity 2021.2.17f1*** compatibility with earlier versions is possible but has not been tested.
+- Source code in this project was written in ***Unity 2022.1.4f1*** compatibility with earlier versions is possible but has not been tested
+- Only the new Input System is supported. Legacy support have been removed on the 16th of June 2022
 
 ## Donating
 
